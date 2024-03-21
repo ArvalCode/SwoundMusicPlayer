@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .folders {
+            margin-top: 20px;
+        }
+
+        .folder {
+            padding: 10px;
+            background-color: #ddd;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            cursor:pointer
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Swound Music Player</h1>
+        <div class="button-container"> <button class="button" onclick="createNewLibrary()">Create New Library</button>
+        </div>
+        <div class="folders">
+
+            {% for m in music %}
+            <div id = "{{m}}" class="folder" onclick='gotolibrary("{{m}}")'>{{m}}</div>
+            
+            {% endfor %}
+        </div>
+    </div>
+    <script> function createNewLibrary() { alert("New library created!"); } 
+    function gotolibrary(name) {
+alert(name)
+    }
+    </script>
+</body>
+
+</html>
