@@ -1,83 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<title>SWOUND Music Player</title>
+<style>
+  header {
+    padding: 0px;
+    text-align: center;
+    font-size: 35px;
+    color: rgb(40, 95, 52);
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-        }
+  }
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+  nav {
+    margin-top: -40px;
+    float: 6;
+    width: 10%;
+    height: 100px;
+    padding: 0px;
+    text-align: center;
+  }
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+  article {
+    margin-top: -20px;
+    float: right;
+    padding: 20px;
+    width: 60%;
+    background-color: #d1d6d0;
+    height: 400px;
+    text-align: center;
+  }
 
-        .button-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #45a049;
-        }
-
-        .folders {
-            margin-top: 20px;
-        }
-
-        .folder {
-            padding: 10px;
-            background-color: #ddd;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            cursor:pointer
-        }
-    </style>
+  aside {
+    margin-top: -29px;
+    padding: -20px;
+    width: 35%;
+    background-color: #e7ece5;
+    height: 440px;
+    text-align: center;
+  }
+</style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Swound Music Player</h1>
-        <div class="button-container"> <button class="button" onclick="createNewLibrary()">Create New Library</button>
-        </div>
-        <div class="folders">
+  <header>
+    <h1>SWOUND</h1>
+  </header>
+  <nav>
+    <h2> Upload and Create Your Own Music! </h2>
+  </nav>
+  <article>
+    <h1 style="margin: -10px;">Your Library</h1>
+    <div class="folders">
 
-            {% for m in music %}
-            <div id = "{{m}}" class="folder" onclick='gotolibrary("{{m}}")'>{{m}}</div>
-            
-            {% endfor %}
-        </div>
+      {% for m in music %}
+      <div id="{{m}}" class="folder" onclick='gotolibrary("{{m}}")'>{{m}}</div>
+
+      {% endfor %}
     </div>
-    <script> function createNewLibrary() { alert("New library created!"); } 
-    function gotolibrary(name) {
-alert(name)
-    }
-    </script>
+  </article>
+  <aside>
+    <h1 style="margin: 19px;">Create New Collection</h1>
+    <form action="/createfolder" method="POST" enctype="multipart/form-data">
+      <p>Collection Name:</p> <input type="text" name="collection_name">
+      <p style="margin-top: 30px;">Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img"
+        name="cover_image" accept="image/*">
+      <p style="margin-top: 30px;">Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit"
+        style="margin-top: 30px;">Submit</button>
+    </form>
+
+
+  </aside>
 </body>
 
 </html>
