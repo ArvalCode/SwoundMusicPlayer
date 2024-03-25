@@ -12,33 +12,51 @@
   color: rgb(29, 53, 37);
     }
     nav {
+        padding: 0px;
+        margin-left: 20px;
+        margin-top: -30px;
+  text-align: left;
+  font-size: 20px;
+  color: rgb(29, 53, 37);
+    }
+    article {
 
+  float: left;
+  padding: 50px;
+  width: 20%;
+  background-color: #57ac65;
+  height: 100px; 
+  margin-top: 50px;
     }
     .btn {
-  background-color: rgb(86, 98, 109);
+  background-color: #aac2b4;
   border: none; 
   color: white; 
-  padding: 12px 10px 10px; 
+  padding: 10px 12px 10px; 
   font-size: 16px;
   cursor: pointer; 
+  transition-duration: 0.2s;
 }
 
 
 .btn:hover {
-  background-color: rgb(46, 58, 95);
+  background-color: #697e72;
 }
     </style>
 </head>
 <body>
     <header>
-        <h1 style="font-family: 'Courier New', Courier, monospace;">Your Library</h1>
+        <h1 style="font-family: 'Courier New', Courier, monospace;">folder name goes here</h1>
         </header>
 
     <nav>
-        <button class="btn"><i class="material-icons">upload</i> </button>
+        <button title = "Upload File" class="btn"><i class="material-icons">upload</i></button>
+        <-- make these buttons actually work --->
+        <button style="margin-left: 230px" title = "Play All" class="btn"><i class="material-icons">pause</i></button>
     </nav>
-<h1>hi</h1>
-<p>hiiiiiiiiiiiiiiiiiiiiiiiiii</p>
+<article>
+    <p>hi</p>
+    </article>
 
 </body>
 </html>

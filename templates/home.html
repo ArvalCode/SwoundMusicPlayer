@@ -9,15 +9,6 @@
 
   }
 
-  nav {
-    margin-top: -40px;
-    float: 6;
-    width: 10%;
-    height: 100px;
-    padding: 0px;
-    text-align: center;
-  }
-
   article {
     margin-top: -20px;
     float: right;
@@ -43,9 +34,6 @@
   <header>
     <h1>SWOUND</h1>
   </header>
-  <nav>
-    <h2> Upload and Create Your Own Music! </h2>
-  </nav>
   <article>
     <h1 style="margin: -10px;">Your Library</h1>
     <div class="folders">
@@ -57,13 +45,12 @@
     </div>
   </article>
   <aside>
-    <h1 style="margin: 19px;">Create New Collection</h1>
+    <h1>Create New Collection</h1>
     <form action="/createfolder" method="POST" enctype="multipart/form-data">
       <p>Collection Name:</p> <input type="text" name="collection_name">
-      <p style="margin-top: 30px;">Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img"
-        name="cover_image" accept="image/*">
-      <p style="margin-top: 30px;">Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit"
-        style="margin-top: 30px;">Submit</button>
+      <p>Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img" name="cover_image"
+        accept="image/*">
+      <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit">Submit</button>
     </form>
 
 

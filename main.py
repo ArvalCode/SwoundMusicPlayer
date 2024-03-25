@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import os
 
 
@@ -28,8 +28,7 @@ def createfolder():
         audio_file.save(audio_file_path)
     dir_list = os.listdir("music") 
 
-    return render_template('home.html', the_title='Music Player App', music = dir_list)
-
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)    
