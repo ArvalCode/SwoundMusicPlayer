@@ -46,13 +46,14 @@
 </head>
 <body>
     <header>
-        <h1 style="font-family: 'Courier New', Courier, monospace;">folder name goes here</h1>
+        <h1 style="font-family: 'Courier New', Courier, monospace;">variable folder name</h1>
         </header>
 
     <nav>
         <button title = "Upload File" class="btn"><i class="material-icons">upload</i></button>
         <-- make these buttons actually work --->
         <button style="margin-left: 230px" title = "Play All" class="btn"><i class="material-icons">pause</i></button>
+        
     </nav>
 <article>
     <p>hi</p>
