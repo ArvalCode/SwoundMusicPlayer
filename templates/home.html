@@ -1,60 +1,90 @@
 <!DOCTYPE html>
-<title>SWOUND Music Player</title>
-<style>
-  header {
-    padding: 0px;
-    text-align: center;
-    font-size: 35px;
-    color: rgb(40, 95, 52);
+<html>
 
-  }
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <title>SWOUND Music Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-  article {
-    margin-top: -20px;
-    float: right;
-    padding: 20px;
-    width: 60%;
-    background-color: #d1d6d0;
-    height: 400px;
-    text-align: center;
-  }
+    header {
+      padding: 20px 0;
+      text-align: center;
+      font-size: 35px;
+      color: rgb(40, 95, 52);
+    }
 
-  aside {
-    margin-top: -20px;
-    padding: -20px;
-    width: 35%;
-    background-color: #e7ece5;
-    height: 440px;
-    text-align: center;
-  }
-</style>
+    nav {
+      float: left;
+      width: 20%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    article {
+      float: left;
+      width: 60%;
+      padding: 20px;
+      background-color: #d1d6d0;
+      height: 80vh;
+      text-align: center;
+    }
+
+    .new {
+      float: left;
+      width: 30%;
+      padding: 20px;
+      background-color: #e7ece5;
+      height: 80vh;
+      text-align: center;
+    }
+
+    .folder {
+      cursor: pointer;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .folder:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
 </head>
 
 <body>
   <header>
     <h1>SWOUND</h1>
   </header>
+  <h2 style="display: flex;justify-content: center;"> Upload and Create Your Own Music! </h2>
   <article>
-    <h1 style="margin: -10px;">Your Library</h1>
-    <div class="folders">
-
-      {% for m in music %}
-      <div id="{{m}}" class="folder" onclick='gotolibrary("{{m}}")'>{{m}}</div>
-
-      {% endfor %}
-    </div>
+    <h1>Your Library</h1>
+    <div class="folders"> {% for m in music %} <div class="folder" onclick='gotolibrary("{{m}}")'>{{m}}</div> {% endfor
+      %} </div>
   </article>
-  <aside>
+  <div class="new">
     <h1>Create New Collection</h1>
     <form action="/createfolder" method="POST" enctype="multipart/form-data">
       <p>Collection Name:</p> <input type="text" name="collection_name">
       <p>Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img" name="cover_image"
         accept="image/*">
-      <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit">Submit</button>
+      <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit" class="btn btn-success">Submit</button>
+      
     </form>
+    
+  </div>
 
-
-  </aside>
+  <script>
+    function gotolibrary(lib) {
+      location.href = '/folder?foldername=' + lib;
+    }
+  </script>
 </body>
 
 </html>

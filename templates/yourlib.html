@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Your SWOUND Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .btn {
+            background-color: #97c598;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition-duration: 0.2s;
+        }
+
+        .btn:hover {
+            background-color: rgb(126, 173, 129);
+        }
+
+        .audio-container {
+            margin-top: 20px;
+        }
+
+        audio {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>Your SWOUND Library</header>
+    <div class="container"> <img src="{{ url_for('static', filename='music/' + name + '/' + coverimg) }}"
+            alt="Album Cover"
+            width="300"
+            height="300">
+        <div class="audio-container">         
+          {% for audio_file in audiofiles %}
+            <audio controls>
+                <source src="{{ url_for('static', filename='music/' + name+'/audio/' + audio_file) }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <br>
+            {% endfor %} 
+          </div> 
+          <button class="btn" onclick="playAllAudios()"><i class="material-icons">play_arrow</i></button>
+          <button class="btn" onclick="shuffle()"><i class="material-icons">shuffle</i></button>
+    </div>
+    <script> function playAllAudios() { var audioElements = document.querySelectorAll('audio'); playAudio(audioElements, 0); } function playAudio(audioElements, index) { if (index < audioElements.length) { var audio = audioElements[index]; audio.play(); audio.onended = function () { playAudio(audioElements, index + 1); }; } } </script>
+</body>
+
+</html>
