@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
   <title>SWOUND Music Player</title>
   <style>
     body {
@@ -30,7 +29,7 @@
       width: 60%;
       padding: 20px;
       background-color: #d1d6d0;
-      height: 80vh;
+      height: 40vh;
       text-align: center;
     }
 
@@ -39,7 +38,7 @@
       width: 30%;
       padding: 20px;
       background-color: #e7ece5;
-      height: 80vh;
+      height: 40vh;
       text-align: center;
     }
 
@@ -74,12 +73,8 @@
       <p>Collection Name:</p> <input type="text" name="collection_name">
       <p>Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img" name="cover_image"
         accept="image/*">
-      <p>Upload Files:</p> <input type="file" name="files[]" multiple> 
-      <a href="yourlib.html">
-      <button type="submit" class="btn btn-success">Create</button>
-      </a>
+      <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit">Submit</button>
     </form>
-    
   </div>
 
   <script>

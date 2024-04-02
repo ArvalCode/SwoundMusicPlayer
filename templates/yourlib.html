@@ -26,7 +26,7 @@
         }
 
         .btn {
-            background-color: #97c598;
+            background-color: #4CAF50;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -37,11 +37,10 @@
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 4px;
-            transition-duration: 0.2s;
         }
 
         .btn:hover {
-            background-color: rgb(126, 173, 129);
+            background-color: #45a049;
         }
 
         .audio-container {
@@ -58,25 +57,84 @@
 <body>
     <header>Your SWOUND Library</header>
     <div class="container"> <img src="{{ url_for('static', filename='music/' + name + '/' + coverimg) }}"
-            alt="Album Cover"
-            width="300"
-            height="300">
-        <div class="audio-container">         
-          {% for audio_file in audiofiles %}
-            <audio controls>
-                <source src="{{ url_for('static', filename='music/' + name+'/audio/' + audio_file) }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <br>
+            alt="Album Cover">
+        <div class="audio-container"> 
+            {% for audio_file in audiofiles %} 
+            <audio onplay = "audclicked('{{loop.index}}')" id="audio{{ loop.index }}" controls>
+                <source src="{{ url_for('static', filename='music/' + name + '/audio/' + audio_file) }}"
+                    type="audio/mpeg"> Your browser does not support the audio element.
+            </audio> <br> 
             {% endfor %} 
-          </div> 
-          <button class="btn" onclick="playAllAudios()" title="Play All"><i
-            class="material-icons">play_arrow</i></button> <button class="btn" onclick="shuffle()" title="Shuffle"><i
-            class="material-icons">shuffle</i></button> <button class="btn" onclick="pauseAllAudios()" title="Pause"><i
-            class="material-icons">pause</i></button> <button class="btn" onclick="skipBack()" title="Previous Track"><i
-            class="material-icons">skip_previous</i></button> <button class="btn" onclick="skipForward()" title="Next Track"><i
-            class="material-icons">skip_next</i></button >
+        </div> <button class="btn" onclick="playAllAudios()"><i
+                class="material-icons">play_arrow</i></button> <button class="btn" onclick="shuffle()"><i
+                class="material-icons">shuffle</i></button> <button class="btn" onclick="pauseAllAudios()"><i
+                class="material-icons">pause</i></button> <button class="btn" onclick="skipBack()"><i
+                class="material-icons">skip_previous</i></button> <button class="btn" onclick="skipForward()"><i
+                class="material-icons">skip_next</i></button>
     </div>
-    <script> function playAllAudios() { var audioElements = document.querySelectorAll('audio'); playAudio(audioElements, 0); } function playAudio(audioElements, index) { if (index < audioElements.length) { var audio = audioElements[index]; audio.play(); audio.onended = function () { playAudio(audioElements, index + 1); }; } } function pauseAllAudios() { var audioElements = document.querySelectorAll('audio'); audioElements.forEach(function (audio) { audio.pause(); }); } function skipBack() { var currentAudio = document.querySelector('audio[controls]'); currentAudio.currentTime -= 10;  } function skipForward() { var currentAudio = document.querySelector('audio[controls]'); currentAudio.currentTime += 10;  } function shuffle() { var audioElements = document.querySelectorAll('audio'); var currentIndex = audioElements.length; var temporaryValue, randomIndex; while (0 !== currentIndex) { randomIndex = Math.floor(Math.random() * currentIndex); currentIndex -= 1; temporaryValue = audioElements[currentIndex]; audioElements[currentIndex] = audioElements[randomIndex]; audioElements[randomIndex] = temporaryValue; } playAudio(audioElements, 0); } </script>
+    <script> 
+    var currentAudioInd = 0;
+
+    function playAllAudios() {
+        var audioElements=document.querySelectorAll('audio');
+        playAudio(audioElements, currentAudioInd);
+    }
+
+    function audclicked(ind) {
+        pauseAllAudiosExceptcurr(ind-1)
+        currentAudioInd = ind-1;
+        console.log(currentAudioInd);
+
+    }
+
+    function playAudio(audioElements, index) {
+        if (index < audioElements.length) {
+            var audio=audioElements[index];
+            audio.play();
+    
+            audio.onended=function () {
+                currentAudioInd+=1;
+                playAudio(audioElements, index + 1);
+            }
+    
+            ;
+        }
+    }
+    
+    function pauseAllAudiosExceptcurr(ind) {
+        var audioElements=document.querySelectorAll('audio');
+        var i = 0;
+        audioElements.forEach(function (audio) {
+                if (i != ind) {
+                audio.pause();
+                }
+                i ++;
+            });
+    }
+
+    function pauseAllAudios() {
+        var audioElements=document.querySelectorAll('audio');
+    
+        audioElements.forEach(function (audio) {
+                audio.pause();
+            });
+    }
+    
+    function skipBack() {
+        var currentAudio=document.querySelectorAll('audio');
+        currentAudio[currentAudioInd].currentTime -=10;
+    }
+    
+    function skipForward() {
+        var currentAudio=document.querySelectorAll('audio');
+        currentAudio[currentAudioInd].currentTime +=10;
+    }
+    
+    function shuffle() {
+location.reload();
+    }
+    
+    </script>
 </body>
+
 </html>

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 import os
-
+import random
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def createfolder():
         audio_file.save(audio_file_path)
     dir_list = os.listdir("static/music") 
 
-    return redirect('/')
+    return redirect(f'/folder?foldername={name}')
 
 @app.route('/folder')
 def folder():
@@ -42,7 +42,7 @@ def folder():
             coverimage = path
 
     
-    return render_template('yourlib.html', the_title='Your Library', audiofiles = audiofiles, name = folderid, coverimg = coverimage.name)
+    return render_template('yourlib.html', the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
 
 
 if __name__ == '__main__':
