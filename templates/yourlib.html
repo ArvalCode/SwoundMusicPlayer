@@ -70,14 +70,13 @@
             <br>
             {% endfor %} 
           </div> 
-          <button class="btn" onclick="playAllAudios()"><i
-            class="material-icons">play_arrow</i></button> <button class="btn" onclick="shuffle()"><i
-            class="material-icons">shuffle</i></button> <button class="btn" onclick="pauseAllAudios()"><i
-            class="material-icons">pause</i></button> <button class="btn" onclick="skipBack()"><i
-            class="material-icons">skip_previous</i></button> <button class="btn" onclick="skipForward()"><i
-            class="material-icons">skip_next</i></button>
+          <button class="btn" onclick="playAllAudios()" title="Play All"><i
+            class="material-icons">play_arrow</i></button> <button class="btn" onclick="shuffle()" title="Shuffle"><i
+            class="material-icons">shuffle</i></button> <button class="btn" onclick="pauseAllAudios()" title="Pause"><i
+            class="material-icons">pause</i></button> <button class="btn" onclick="skipBack()" title="Previous Track"><i
+            class="material-icons">skip_previous</i></button> <button class="btn" onclick="skipForward()" title="Next Track"><i
+            class="material-icons">skip_next</i></button >
     </div>
     <script> function playAllAudios() { var audioElements = document.querySelectorAll('audio'); playAudio(audioElements, 0); } function playAudio(audioElements, index) { if (index < audioElements.length) { var audio = audioElements[index]; audio.play(); audio.onended = function () { playAudio(audioElements, index + 1); }; } } function pauseAllAudios() { var audioElements = document.querySelectorAll('audio'); audioElements.forEach(function (audio) { audio.pause(); }); } function skipBack() { var currentAudio = document.querySelector('audio[controls]'); currentAudio.currentTime -= 10;  } function skipForward() { var currentAudio = document.querySelector('audio[controls]'); currentAudio.currentTime += 10;  } function shuffle() { var audioElements = document.querySelectorAll('audio'); var currentIndex = audioElements.length; var temporaryValue, randomIndex; while (0 !== currentIndex) { randomIndex = Math.floor(Math.random() * currentIndex); currentIndex -= 1; temporaryValue = audioElements[currentIndex]; audioElements[currentIndex] = audioElements[randomIndex]; audioElements[randomIndex] = temporaryValue; } playAudio(audioElements, 0); } </script>
 </body>
-
 </html>
