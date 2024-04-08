@@ -56,13 +56,13 @@
 
 <body>
     <header>Your SWOUND Library</header>
-    <div class="container"> <img src="{{ url_for('static', filename='music/' + name + '/' + coverimg) }}"
+    <div class="container"> <img src="{{ url_for('static', filename= s+'/' + name + '/' + coverimg) }}"
             alt="Album Cover">
         <div class="audio-container"> 
             {% for audio_file in audiofiles %} 
             <label for="audio{{ loop.index }}">{{audio_file|replace('-', ' ')}}</label>
             <audio onplay = "audclicked('{{loop.index}}')" id="audio{{ loop.index }}" controls>
-                <source src="{{ url_for('static', filename='music/' + name + '/audio/' + audio_file) }}"
+                <source src="{{ url_for('static', filename=s+'/' + name + '/audio/' + audio_file) }}"
                     type="audio/mpeg"> Your browser does not support the audio element.
             </audio> <br> 
             {% endfor %} 

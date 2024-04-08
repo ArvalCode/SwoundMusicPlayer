@@ -18,7 +18,16 @@ def index():
                 if i.is_file():
                     coverimgs.append(i.name)
 
-    return render_template('home.html', the_title='Music Player App', music = dir_list, coverimglist = coverimgs )
+    sdir_list = os.listdir("static/suggested") 
+
+    scoverimgs = []
+    for path in os.scandir(f'static/suggested/'):
+        if not path.is_file():
+            for i in os.scandir(f'static/suggested/{path.name}'):
+                if i.is_file():
+                    scoverimgs.append(i.name)
+
+    return render_template('home.html', the_title='Music Player App', music = dir_list, coverimglist = coverimgs, sdir_list = sdir_list, scoverimgs = scoverimgs )
 
 @app.route('/createfolder', methods=['POST'])
 def createfolder():
@@ -52,7 +61,21 @@ def folder():
             coverimage = path
 
     
-    return render_template('yourlib.html', the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
+    return render_template('yourlib.html', s="music", the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
+
+@app.route('/sfolder')
+def sfolder():
+    folderid = request.args.get("foldername")
+    folder = os.listdir(f"static/suggested/{folderid}") 
+
+    audiofiles = os.listdir(f"static/suggested/{folderid}/audio")
+
+    for path in os.scandir(f'static/suggested/{folderid}'):
+        if path.is_file():
+            coverimage = path
+
+    
+    return render_template('yourlib.html',s="suggested", the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
 
 
 if __name__ == '__main__':
