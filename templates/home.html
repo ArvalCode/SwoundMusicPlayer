@@ -1,87 +1,110 @@
+
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>SWOUND Music Player</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swound</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      padding: 20px 0;
-      text-align: center;
-      font-size: 35px;
-      color: rgb(40, 95, 52);
-    }
-
-    nav {
-      float: left;
-      width: 20%;
-      padding: 20px;
-      text-align: center;
-    }
-
-    article {
-      float: left;
-      width: 60%;
-      padding: 20px;
-      background-color: #d1d6d0;
-      height: 40vh;
-      text-align: center;
-    }
-
-    .new {
-      float: left;
-      width: 30%;
-      padding: 20px;
-      background-color: #e7ece5;
-      height: 40vh;
-      text-align: center;
-    }
-
-    .folder {
-      cursor: pointer;
-      margin: 10px 0;
-      padding: 10px;
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .folder:hover {
-      background-color: #e0e0e0;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
   </style>
 </head>
-
-<body>
-  <header>
-    <h1><img src="file:///C:/Users/MADHAEKT000/Downloads/SWOUND%20(4).png" alt="SWOUND"></h1>
+<body class="bg-gray-100 text-gray-600 font-poppins">
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4">
+      <div class="flex items-center">
+        <a href="#" class="text-2xl font-bold text-gray-800">
+          <span class="text-indigo-600">S</span>wound
+        </a>
+        <nav class="ml-8">
+          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Converter</a>
+          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Library</a>
+          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Discover</a>
+        </nav>
+      </div>
+      <div class="flex items-center">
+        <form action="#" class="relative">
+          <input type="text" placeholder="Search bar" class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+          <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
   </header>
-  <h2 style="display: flex;justify-content: center;"> Upload and Create Your Own Music! </h2>
-  <article>
-    <h1>Your Library</h1>
-    <div class="folders"> {% for m in music %} <div class="folder" onclick='gotolibrary("{{m}}")'>{{m}}</div> {% endfor
-      %} </div>
-  </article>
-  <div class="new">
-    <h1>Create New Collection</h1>
-    <form action="/createfolder" method="POST" enctype="multipart/form-data">
-      <p>Collection Name:</p> <input type="text" name="collection_name">
-      <p>Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img" name="cover_image"
-        accept="image/*">
-      <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit">Submit</button>
-    </form>
+  <main class="container mx-auto py-12 px-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Uploads</h2>
+    <div class="grid grid-cols-3 gap-4">
+      {% for i in range(3) %}
+      <div class="bg-white shadow-md rounded-md p-4" onclick='gotolibrary("{{music[i]}}")'>
+            <div class="flex items-center">
+              {% set t = music[i] %}
+              {% set n = coverimglist[i] %}
+
+              <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="folder cover image" class="w-12 h-12 rounded-full">
+              <div class="ml-4">
+                <p class="text-gray-800 font-bold">{{music[i]}}</p>
+                <p class="text-gray-600 text-sm">5hr 34m</p>
+              </div>
+              
+            </div>
+            <div class="mt-4">
+              <p class="text-gray-600">desc</p>
+            </div>
+          </div>
+        {% endfor%} 
   </div>
 
-  <script>
-    function gotolibrary(lib) {
-      location.href = '/folder?foldername=' + lib;
-    }
-  </script>
-</body>
 
-</html>
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Suggested For You</h2>
+    <div class="grid grid-cols-3 gap-4">
+      {% for i in range(3) %}
+      <div class="bg-white shadow-md rounded-md p-4" onclick='gotolibrary("{{music[i]}}")'>
+            <div class="flex items-center">
+              {% set t = music[i] %}
+              {% set n = coverimglist[i] %}
+
+              <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="folder cover image" class="w-12 h-12 rounded-full">
+                            <div class="ml-4">
+                <p class="text-gray-800 font-bold">{{music[i]}}</p>
+                <p class="text-gray-600 text-sm">5hr 34m</p>
+              </div>
+              
+            </div>
+            <div class="mt-4">
+              <p class="text-gray-600">desc</p>
+            </div>
+          </div>
+        {% endfor%} 
+    </div>
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Your Library</h2>
+    <div class="grid grid-cols-3 gap-4">
+      {% for i in range(3) %}
+
+      <div class="bg-white shadow-md rounded-md p-4" onclick='gotolibrary("{{music[i]}}")'>
+
+        {% set t = music[i] %}
+        {% set n = coverimglist[i] %}
+        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="A placeholder image of fire" class="w-full h-full object-cover">
+        
+        <div class="flex items-center justify-between mt-4">
+          <p class="text-gray-800 font-bold">Album 1</p>
+          <div class="flex items-center">
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.312 8.828a5.01 5.01 0 008.502 0 5.01 5.01 0 00-8.502 0zM16 11a1 1 0 11-2 0 1 1 0 012 0zM10 14a1 1 0 11-2 0 1 1 0 012 0zM13.586 17.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM16 18a2 2 0 11-2 0 2 2 0 012 0z" />
+              </svg>
+            </a>
+            <a href="#" class="text-indigo-600 hover:text-indigo-800">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.001 7.001 0 0111.601 2.166 1 1 0 11-2.321-.116.75.75 0 00-.53-1.06l-2.67-2.67a1 1 0 011.414-1.414L5.5 5.59 7.907 7.907a1 1 0 010 1.414L4 12.414V13a1 1 0 01-1 1v2.101a7.001 7.001 0 01-11.601 2.166 1 1 0 112.321-.116.75.75 0 01.53 1.06l2.67 2.67a1 1 0 01-1.414 1.414L2.5 18.413 4.907 16.093a1 1 0 010-1.414L4 13.413V12a1 1 0 011-1Z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor%} 

@@ -2,12 +2,23 @@ from flask import Flask, render_template, request, redirect
 import os
 import random
 
+# calculate audio file length
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
     dir_list = os.listdir("static/music") 
-    return render_template('home.html', the_title='Music Player App', music = dir_list)
+
+    coverimgs = []
+    for path in os.scandir(f'static/music/'):
+        if not path.is_file():
+            for i in os.scandir(f'static/music/{path.name}'):
+                if i.is_file():
+                    coverimgs.append(i.name)
+
+    return render_template('home.html', the_title='Music Player App', music = dir_list, coverimglist = coverimgs )
 
 @app.route('/createfolder', methods=['POST'])
 def createfolder():
@@ -29,7 +40,6 @@ def createfolder():
     dir_list = os.listdir("static/music") 
 
     return redirect(f'/folder?foldername={name}')
-
 @app.route('/folder')
 def folder():
     folderid = request.args.get("foldername")

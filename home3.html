@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SWOUND Music Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+
+      text-align: center;
+      font-size: 35px;
+      color: #A647E7;
+    }
+
+    nav {
+      float: left;
+      width: 20%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    article {
+      float: left;
+      width: 60%;
+      padding: 20px;
+      background-color: #d1d6d0;
+      height: 40vh;
+      text-align: center;
+    }
+
+    .new {
+      float: left;
+      width: 30%;
+      padding: 20px;
+      background-color: #e7ece5;
+      height: 40vh;
+      text-align: center;
+    }
+
+    .folder {
+      cursor: pointer;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .folder:hover {
+      background-color: #e0e0e0;
+    }
+
+    .recentUploads {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 style="margin-bottom: 0px">SWOUND</h1>
+  </header>
+  <h2 style="display: flex;justify-content: center;"> Upload and Create Your Own Music! </h2>
+
+  <label for="recentUploadsFolder" style="
+  margin-left: 5vw;
+">recent uploads</label><div class="recentUploadsFolder" style="
+margin: 5vw;
+height: 20vh;
+border: 1px solid black;
+display: flex;
+flex-direction: row;
+margin-top: 0;
+align-items: center;
+overflow-y: scroll;
+
+">
+{% for m in music %} 
+<div class="recentUploads" style="
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 70%;
+  width: 30%;
+  margin: 2%;
+  min-width: 30%;
+">
+  <p1>{{m}}</p1>
+</div>
+{% endfor%} 
+
+</div>
+
+  <article>
+    <h1>Your Library</h1>
+    <div class="folders"> {% for m in music %} 
+      <div class="folder" onclick='gotolibrary("{{m}}")'>{{m}}</div> 
+      {% endfor%} 
+    </div>
+  </article>
+  <div class="new">
+    <h1>Create New Collection</h1>
+    <form action="/createfolder" method="POST" enctype="multipart/form-data">
+      <p>Collection Name:</p> <input type="text" name="collection_name">
+      <p>Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img" name="cover_image"
+        accept="image/*">
+      <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function gotolibrary(lib) {
+      location.href = '/folder?foldername=' + lib;
+    }
+  </script>
+</body>
+
+</html>
