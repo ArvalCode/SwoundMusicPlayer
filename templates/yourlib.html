@@ -12,14 +12,9 @@
             background-color: #f0f0f0;
         }
 
-        header {
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            color: #333;
-        }
 
-        .container {
+
+        .acontainer {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -53,10 +48,35 @@
         }
     </style>
 </head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
 
-<body>
-    <header>Your SWOUND Library</header>
-    <div class="container"> <img src="{{ url_for('static', filename= s+'/' + name + '/' + coverimg) }}"
+<header class="bg-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4">
+      <div class="flex items-center">
+        <a href="/" class="text-2xl font-bold text-gray-800">
+          <span class="text-indigo-600">S</span>wound
+        </a>
+        <nav class="ml-8">
+          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Create Folder</a>
+          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Discover</a>
+        </nav>
+      </div>
+      <div class="flex items-center">
+        <form action="#" class="relative">
+          <input type="text" placeholder="Search bar" class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+          <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+<body class="bg-gray-100 text-gray-600 font-poppins">
+    <div class="acontainer"> <img src="{{ url_for('static', filename= s+'/' + name + '/' + coverimg) }}"
             alt="Album Cover">
         <div class="audio-container"> 
             {% for audio_file in audiofiles %} 
@@ -138,5 +158,4 @@ location.reload();
     
     </script>
 </body>
-
 </html>

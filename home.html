@@ -9,13 +9,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
   </style>
 </head>
 <body class="bg-gray-100 text-gray-600 font-poppins">
   <header class="bg-white shadow-md">
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <div class="flex items-center">
-        <a href="#" class="text-2xl font-bold text-gray-800">
+        <a href="/" class="text-2xl font-bold text-gray-800">
           <span class="text-indigo-600">S</span>wound
         </a>
         <nav class="ml-8">
@@ -39,7 +40,7 @@
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Uploads</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range([music|length,3] | min) %}
-      <div class="bg-white shadow-md rounded-md p-4" onclick='gotolibrary("{{music[i]}}")'>
+      <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
             <div class="flex items-center">
               {% set t = music[i] %}
               {% set n = coverimglist[i] %}
@@ -51,9 +52,7 @@
               </div>
               
             </div>
-            <div class="mt-4">
-              <p class="text-gray-600">desc</p>
-            </div>
+
           </div>
         {% endfor%} 
   </div>
@@ -62,7 +61,7 @@
     <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Suggested For You</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(3) %}
-      <div class="bg-white shadow-md rounded-md p-4" onclick='gotosuggested("{{sdir_list[i]}}")'>
+      <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotosuggested("{{sdir_list[i]}}")'>
             <div class="flex items-center">
               {% set t = sdir_list[i] %}
               {% set n = scoverimgs[i] %}
@@ -84,7 +83,7 @@
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(music|length) %}
 
-      <div class="bg-white shadow-md rounded-md p-4" onclick='gotolibrary("{{music[i]}}")'>
+      <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
 
         {% set t = music[i] %}
         {% set n = coverimglist[i] %}
