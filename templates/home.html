@@ -19,8 +19,7 @@
           <span class="text-indigo-600">S</span>wound
         </a>
         <nav class="ml-8">
-          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Converter</a>
-          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Library</a>
+          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Create Folder</a>
           <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Discover</a>
         </nav>
       </div>
@@ -39,7 +38,7 @@
   <main class="container mx-auto py-12 px-4">
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Uploads</h2>
     <div class="grid grid-cols-3 gap-4">
-      {% for i in range(3) %}
+      {% for i in range([music|length,3] | min) %}
       <div class="bg-white shadow-md rounded-md p-4" onclick='gotolibrary("{{music[i]}}")'>
             <div class="flex items-center">
               {% set t = music[i] %}
@@ -63,14 +62,14 @@
     <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Suggested For You</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(3) %}
-      <div class="bg-white shadow-md rounded-md p-4" onclick='gotolibrary("{{music[i]}}")'>
+      <div class="bg-white shadow-md rounded-md p-4" onclick='gotosuggested("{{sdir_list[i]}}")'>
             <div class="flex items-center">
-              {% set t = music[i] %}
-              {% set n = coverimglist[i] %}
+              {% set t = sdir_list[i] %}
+              {% set n = scoverimgs[i] %}
 
-              <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="folder cover image" class="w-12 h-12 rounded-full">
+              <img src="{{ url_for('static', filename='suggested/' +t+ '/' + n) }}" alt="folder cover image" class="w-12 h-12 rounded-full">
                             <div class="ml-4">
-                <p class="text-gray-800 font-bold">{{music[i]}}</p>
+                <p class="text-gray-800 font-bold">{{sdir_list[i]}}</p>
                 <p class="text-gray-600 text-sm">5hr 34m</p>
               </div>
               
@@ -92,14 +91,22 @@
         <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}"  alt="A placeholder image of fire" class="w-full h-full object-cover">
         
         <div class="flex items-center justify-between mt-4">
-          <p class="text-gray-800 font-bold">Album 1</p>
+          <p class="text-gray-800 font-bold">{{music[i]}}</p>
           
         </div>
       </div>
       {% endfor%} 
-
+      <form action="/createfolder" method="POST" enctype="multipart/form-data">
+        <p>Collection Name:</p> <input type="text" name="collection_name">
+        <p>Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img" name="cover_image"
+          accept="image/*">
+        <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit">Submit</button>
+      </form>
       <script>
         function gotolibrary(lib) {
           location.href = '/folder?foldername=' + lib;
+        }
+        function gotosuggested(lib) {
+          location.href = '/sfolder?foldername=' + lib;
         }
       </script>
