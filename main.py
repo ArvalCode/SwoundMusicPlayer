@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import os
 import random
+import shutil
 
 # calculate audio file length
 
@@ -49,6 +50,48 @@ def createfolder():
     dir_list = os.listdir("static/music") 
 
     return redirect(f'/folder?foldername={name}')
+
+@app.route('/editfolder', methods=['POST'])
+def editfolder():
+    currentname = request.args.get("currentname")
+    try:
+        name = request.form['collection_name']
+    except:
+        name= request.args.get("currentname")
+        
+    try:
+        cover_image = request.files['cover_image']
+    except Exception as E:
+        print(E)
+        cover_image = False
+
+    audio_files = request.files.getlist('files[]')
+    collection_folder = os.path.join('static/music', currentname) 
+
+    if cover_image != False and cover_image.filename != "":
+        for i in os.scandir(f'static/music/{currentname}'):
+            if i.is_file():
+                os.remove(i)
+        cover_image_path = os.path.join(collection_folder, cover_image.filename) 
+        cover_image.save(cover_image_path)
+
+
+    audio_folder = os.path.join(collection_folder, 'audio') 
+    
+    for audio_file in audio_files: 
+        if audio_file.filename != "":
+            audio_file_path = os.path.join(audio_folder, audio_file.filename) 
+            audio_file.save(audio_file_path)
+
+    try:
+        collection_folder = os.path.join('static/music', currentname)
+        os.rename(collection_folder, f'static/music/{name}') 
+    except:
+        pass
+    if name != "":
+        return redirect(f'/folder?foldername={name}')
+    return redirect(f'/folder?foldername={currentname}')
+
 @app.route('/folder')
 def folder():
     folderid = request.args.get("foldername")
@@ -62,6 +105,25 @@ def folder():
 
     
     return render_template('yourlib.html', s="music", the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
+@app.route('/Newfolder')
+def Newfolder():
+    folderid = random.randrange(10000,100000)
+    while True:
+        try:
+            folder = os.listdir(f"static/music/{folderid}") 
+            folderid = random.randrange(10000,100000)
+        except:
+            os.mkdir(f'static/music/{folderid}')
+            break
+
+    os.mkdir(f"static/music/{folderid}/audio")
+
+    audiofiles = []
+    coverimage = "defaultimage.png"
+    shutil.copy("static/defaultimage.png", f"static/music/{folderid}")
+
+    
+    return render_template('yourlib.html', s="music", the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage)
 
 @app.route('/sfolder')
 def sfolder():
@@ -79,4 +141,4 @@ def sfolder():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)    

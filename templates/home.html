@@ -20,7 +20,7 @@
           <span class="text-indigo-600">S</span>wound
         </a>
         <nav class="ml-8">
-          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Create Folder</a>
+          <a href="Newfolder" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Create Folder</a>
           <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Discover</a>
         </nav>
       </div>
@@ -83,11 +83,11 @@
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(music|length) %}
 
-      <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
+      <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;    margin-bottom: 20px;" onclick='gotolibrary("{{music[i]}}")'>
 
         {% set t = music[i] %}
         {% set n = coverimglist[i] %}
-        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}"  alt="A placeholder image of fire" class="w-full h-full object-cover">
+        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" style=" max-height: 90%;" alt="A placeholder image of fire" class="w-full h-full object-cover">
         
         <div class="flex items-center justify-between mt-4">
           <p class="text-gray-800 font-bold">{{music[i]}}</p>
@@ -97,9 +97,15 @@
       {% endfor%} 
       <form action="/createfolder" method="POST" enctype="multipart/form-data">
         <p>Collection Name:</p> <input type="text" name="collection_name">
-        <p>Cover Image:</p> <label for="img">Select image:</label> <input type="file" id="img" name="cover_image"
+
+        <p>Cover Image:</p> <label for="img">Select image:</label> 
+        <input type="file" id="img" name="cover_image"
           accept="image/*">
-        <p>Upload Files:</p> <input type="file" name="files[]" multiple> <button type="submit">Submit</button>
+          
+        <p>Upload Files:</p> 
+        <input type="file" name="files[]" multiple> 
+        
+        <button type="submit">Submit</button>
       </form>
       <script>
         function gotolibrary(lib) {
