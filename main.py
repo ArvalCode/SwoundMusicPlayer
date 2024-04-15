@@ -3,7 +3,6 @@ import os
 import random
 import shutil
 
-# calculate audio file length
 
 app = Flask(__name__)
 
@@ -105,6 +104,7 @@ def folder():
 
     
     return render_template('yourlib.html', s="music", the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
+
 @app.route('/Newfolder')
 def Newfolder():
     folderid = random.randrange(10000,100000)
@@ -138,6 +138,31 @@ def sfolder():
 
     
     return render_template('yourlib.html',s="suggested", the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
+
+@app.route('/delete')
+def delete():
+    folderid = request.args.get("foldername")
+    deleteid = request.args.get("file")
+    collection_folder = os.path.join('static/music', folderid) 
+    audio_folder = os.path.join(collection_folder, 'audio') 
+    try:
+        os.remove(audio_folder  + "/" + deleteid)
+
+    except:
+        pass
+    return redirect(f'/folder?foldername={folderid}')
+
+
+@app.route('/deletefolder')
+def deletefolder():
+    folderid = request.args.get("foldername")
+    collection_folder = os.path.join('static/music', folderid) 
+    try:
+        shutil.rmtree(collection_folder)
+
+    except Exception as E:
+        print(E)
+    return redirect(f'/#yourlibrary')
 
 
 if __name__ == '__main__':
