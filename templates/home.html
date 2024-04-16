@@ -17,7 +17,7 @@
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <div class="flex items-center">
         <a href="/" class="text-2xl font-bold text-gray-800">
-          <span class="text-indigo-600" style="border-color: white;">S</span>wound
+          <span class="text-indigo-600">Swound</span>
         </a>
         <nav class="ml-8">
           <a href="Newfolder" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md" style="color: white;">Create Folder</a>
@@ -39,8 +39,8 @@
       </div>
     </div>
   </header>
-  <main class="container mx-auto py-12 px-4" style="background-color: rgba(45, 38, 88, 0.589);">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Uploads</h2>
+  <main class="container mx-auto py-12 px-4" style="background-color: rgba(45, 38, 88, 0.76); backdrop-filter: blur(3px) saturate(100%);">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4" style="color: white;">Recent Uploads</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range([music|length,3] | min) %}
       <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
@@ -62,7 +62,7 @@
     </div>
 
 
-    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Suggested For You</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" style="color: white;">Suggested For You</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(3) %}
       <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;"
@@ -85,7 +85,7 @@
       </div>
       {% endfor%}
     </div>
-    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" id="yourlibrary">Your Library</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" id="yourlibrary" style="color: white;">Your Library</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(music|length) %}
 
