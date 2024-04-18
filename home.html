@@ -12,7 +12,8 @@
   </style>
 </head>
 
-<body class="bg-gray-100 text-gray-600 font-poppins">
+
+<body  id="bbb"class="bg-gray-100 text-gray-600 font-poppins">
   <header class="bg-white shadow-md">
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <div class="flex items-center">
@@ -40,7 +41,7 @@
     </div>
   </header>
   <main class="container mx-auto py-12 px-4">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Uploads</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-4" style="color: white;">Recent Uploads</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range([music|length,3] | min) %}
       <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
@@ -62,7 +63,7 @@
     </div>
 
 
-    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Suggested For You</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" style="color: white;">Suggested For You</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(3) %}
       <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;"
@@ -85,16 +86,16 @@
       </div>
       {% endfor%}
     </div>
-    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" id="yourlibrary">Your Library</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" id="yourlibrary" style="color: white;">Your Library</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(music|length) %}
 
-      <div class="bg-white shadow-md rounded-md p-4" style=" max-height:90%;   margin-bottom: 20px;"
+      <div class="bg-white shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;"
         >
 
         {% set t = music[i] %}
         {% set n = coverimglist[i] %}
-        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" style="cursor: pointer; max-height: 90%; border-radius: 15px;"
+        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" style="cursor: pointer; max-height: 90%; border-radius: 15px; height: 35vh;"
           alt="A placeholder image of fire" class="w-full h-full object-cover" onclick='gotolibrary("{{music[i]}}")'>
 
         <div class="flex items-center justify-between mt-4">
@@ -118,3 +119,21 @@
           location.href = '/deletefolder?foldername=' + foldername;
         }
       </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+<script>
+VANTA.NET({
+  el: "#bbb",
+  mouseControls: false,
+  touchControls: false,
+  gyroControls: true,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  points: 14.00,
+  maxDistance: 18.00
+})
+</script>
