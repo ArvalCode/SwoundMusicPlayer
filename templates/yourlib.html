@@ -21,7 +21,7 @@
     }
 
     .btn {
-      background-color: #4CAF50;
+      background-color: #888293;
       border: none;
       color: white;
       padding: 4px 14px;
@@ -32,10 +32,11 @@
       margin: 4px 2px;
       cursor: pointer;
       border-radius: 4px;
+      transition-duration: 0.2s;
     }
 
     .btn:hover {
-      background-color: #45a049;
+      background-color: #676274;
     }
 
     .audio-container {
@@ -51,27 +52,29 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
 
-<header class="bg-white shadow-md">
-  <div class="container mx-auto flex justify-between items-center py-4 px-4">
-    <div class="flex items-center">
-      <a href="/" class="text-2xl font-bold text-gray-800">
-        <span class="text-indigo-600">S</span>wound
-      </a>
-      <nav class="ml-8">
-        <a href="Newfolder" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Create Folder</a>
-        <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Discover</a>
-      </nav>
-    </div>
-    <div class="flex items-center">
-      <form action="#" class="relative">
-        <input type="text" placeholder="Search"
-          class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
-        <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+
+  <header class="bg-[#160831] shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4">
+      <div class="flex items-center">
+        <a href="/" class="text-2xl font-bold text-white">
+
+          <span class="text-[#ff3f81]">S</span>wound
+        </a>
+        <nav class="ml-8">
+          <a href="Newfolder" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Create Folder</a>
+          <a href="#" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Discover</a>
+        </nav>
+      </div>
+      <div class="flex items-center">
+        <form action="#" class="relative">
+          <input type="text" placeholder="Search"
+            class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+          <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
         </button>
       </form>
     </div>
@@ -149,7 +152,7 @@
   }
 </style>
 
-<body class="bg-gray-100 text-gray-600 font-poppins">
+<body class="bg-[#23153c] text-[#eae9eb] font-poppins">
 
 
   <button class="open-button" onclick="openForm()">Edit Folder</button>

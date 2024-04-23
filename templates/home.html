@@ -9,20 +9,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-  </style>
+ </style>
 </head>
 
 
-<body  id="bbb"class="bg-gray-100 text-gray-600 font-poppins">
-  <header class="bg-white shadow-md">
+
+<body  id="bbb"class="bg-gray-100 text-[#ffffffeb] font-poppins">
+  <header class="bg-[#160831] shadow-md">
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <div class="flex items-center">
-        <a href="/" class="text-2xl font-bold text-gray-800">
-          <span class="text-indigo-600">S</span>wound
+        <a href="/" class="text-2xl font-bold text-white">
+
+          <span class="text-[#ff3f81]">S</span>wound
         </a>
         <nav class="ml-8">
-          <a href="Newfolder" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Create Folder</a>
-          <a href="#" class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md">Discover</a>
+          <a href="Newfolder" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Create Folder</a>
+          <a href="#" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Discover</a>
         </nav>
       </div>
       <div class="flex items-center">
@@ -41,10 +43,10 @@
     </div>
   </header>
   <main class="container mx-auto py-12 px-4">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4" style="color: white;">Recent Uploads</h2>
+    <h2 class="text-2xl font-bold text-[#ff3f81] mb-4" style="color: #ff3f81;">Recent Uploads</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range([music|length,3] | min) %}
-      <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
+      <div class="bg-[#160831] shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
         <div class="flex items-center">
           {% set t = music[i] %}
           {% set n = coverimglist[i] %}
@@ -52,8 +54,9 @@
           <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="folder cover image"
             class="w-12 h-12 rounded-full">
           <div class="ml-4">
-            <p class="text-gray-800 font-bold">{{music[i]}}</p>
-            <p class="text-gray-600 text-sm">5hr 34m</p>
+            
+            <p class="text-[#ff3f81] font-bold">{{music[i]}}</p>
+            <p class="text-[#ffffffeb] text-sm">5hr 34m</p>
           </div>
 
         </div>
@@ -63,10 +66,10 @@
     </div>
 
 
-    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" style="color: white;">Suggested For You</h2>
+    <h2 class="text-2xl font-bold text-[#ff3f81] mt-8 mb-4" style="color: #ff3f81;">Suggested For You</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(3) %}
-      <div class="bg-white shadow-md rounded-md p-4" style="cursor: pointer;"
+      <div class="bg-[#160831] shadow-md rounded-md p-4" style="cursor: pointer;"
         onclick='gotosuggested("{{sdir_list[i]}}")'>
         <div class="flex items-center">
           {% set t = sdir_list[i] %}
@@ -75,22 +78,22 @@
           <img src="{{ url_for('static', filename='suggested/' +t+ '/' + n) }}" alt="folder cover image"
             class="w-12 h-12 rounded-full">
           <div class="ml-4">
-            <p class="text-gray-800 font-bold">{{sdir_list[i]}}</p>
-            <p class="text-gray-600 text-sm">5hr 34m</p>
+            <p class="text-[#ff3f81] font-bold">{{sdir_list[i]}}</p>
+            <p class="text-[#ffffffeb] text-sm">5hr 34m</p>
           </div>
 
         </div>
         <div class="mt-4">
-          <p class="text-gray-600">Good relaxing music</p>
+          <p class="text-[#ffffffeb]">Good relaxing music</p>
         </div>
       </div>
       {% endfor%}
     </div>
-    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4" id="yourlibrary" style="color: white;">Your Library</h2>
+    <h2 class="text-2xl font-bold text-[#ff3f81] mt-8 mb-4" id="yourlibrary" style="color: #ff3f81;">Your Library</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(music|length) %}
 
-      <div class="bg-white shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;"
+      <div class="bg-[#160831] shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;"
         >
 
         {% set t = music[i] %}
@@ -99,7 +102,7 @@
           alt="A placeholder image of fire" class="w-full h-full object-cover" onclick='gotolibrary("{{music[i]}}")'>
 
         <div class="flex items-center justify-between mt-4">
-          <p style="cursor: pointer;"  onclick='gotolibrary("{{music[i]}}")' class="text-gray-800 font-bold">{{music[i]}}</p>
+          <p style="cursor: pointer;"  onclick='gotolibrary("{{music[i]}}")' class="text-[#ff3f81] font-bold">{{music[i]}}</p>
 
           <button style="margin-right: 2.4%;" class="delete" onclick="deletefolder('{{t}}')"><i
               class="fa fa-trash" aria-hidden="true"></i></button>
