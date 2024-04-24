@@ -165,15 +165,15 @@
 
   <div id="myForm" class="form-popup">
     <form action="/editfolder?currentname={{name}}" method="POST" class="form-container" enctype="multipart/form-data">
-      <h1>Edit File</h1>
+      <h1 style="color: black;">Edit File</h1>
 
-      <label for="name"><b>Name</b></label>
+      <label for="name" style="color: black;"><b>Name</b></label>
       <input type="text" placeholder="Enter Name" name="collection_name" id="name">
 
-      <label for="img"><b>Cover Image</b></label>
+      <label for="img" style="color: black;"><b>Cover Image</b></label>
       <input type="file" placeholder="Enter Password" id="img" name="cover_image" accept="image/*">
 
-      <label for="img"><b>Upload Music</b></label>
+      <label for="img" style="color: black;"><b>Upload Music</b></label>
       <input type="file" placeholder="Enter Password" name="files[]" multiple>
 
       <button type="submit" class="btn">Save Changes</button>
