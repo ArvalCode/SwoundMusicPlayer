@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Buddy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        .navbar {
+            display: flex;
+            padding-left: 10vw;
+            padding-right: 10vw;
+            width: 80vw;
+            justify-content: space-around;
+            min-height: 5vh;
+            align-items: center;
+        }
+
+        .navbar a {
+            margin-left: 1rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #9ca3af;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #3e80fa, #8bc0fd);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .ncontainer {}
+
+        .hcontainer {
+            margin: 0 auto;
+            padding: 0 1rem;
+            font-size: xx-large;
+
+        }
+
+        .searchcontainer {
+            border: 2px solid #2563eb;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #eef1f3;
+            position: relative;
+            overflow: hidden;
+            animation: searchcontainerglow 2s infinite ease;
+            margin-left: 10%;
+            margin-right: 10%;
+            display: flex;
+            min-height: 15vh;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 70%;
+            min-width: 65%;
+        }
+
+        @keyframes searchcontainerglow {
+            0% {
+                box-shadow: 0 0 20px 0 rgba(37, 99, 235, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 25px 0 rgba(37, 99, 240, 0.85);
+            }
+
+            100% {
+                box-shadow: 0 0 20px 0 rgba(37, 99, 235, 0.7);
+            }
+        }
+
+        .searchcontainer p {
+            margin: 7px;
+        }
+
+        .searchcontainer h2 {
+            margin: 0;
+            font-size: 2.5em;
+            background-image: linear-gradient(to right, #a956d1, #81a5e7);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+
+
+
+
+
+        .main-content {
+            text-align: center;
+            padding-left: 10vw;
+            padding-right: 10vw;
+            width: 80vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-content input[type="text"] {
+            width: 50%;
+            min-height: 20px;
+            border: 1px solid #d1d5db;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            color: #4b5563;
+            outline: none;
+            transition: width 0.3s ease, box-shadow 0.1s ease;
+
+        }
+
+        .main-content input[type="text"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 4px 0 rgba(37, 99, 240, 0.8);
+            width: 52%;
+        }
+
+        .main-content button {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            min-width: 80px;
+            width: 10%;
+            transition: width 0.3s ease,min-width 0.3s ease, height 0.3s ease, font-size 0.3s ease;
+            height: 37px;
+        }
+
+
+
+        .main-content button:hover {
+            width: 13%;
+            min-width: 96px;
+            height: 46px;
+            font-size: 17px;
+            animation: buttonpulse 2s infinite ease;
+
+        }
+
+        @keyframes buttonpulse {
+            0% {
+                box-shadow: 0 0 20px 0 rgba(37, 99, 235, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 25px 0 rgba(37, 99, 240, 0.9);
+            }
+
+            100% {
+                box-shadow: 0 0 20px 0 rgba(37, 99, 235, 0.7);
+            }
+        }
+
+
+        .footer {
+            color: #3e80fa;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .footer ul {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer ul li {
+            margin: 0 0.5rem;
+        }
+
+        .footer ul li a {
+            color: #3e80fa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer ul li a:hover {
+            color: rgb(58, 99, 169);
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .hcontainer {
+                font-size: x-large;
+            }
+
+            .searchcontainer h2 {
+                font-size: 1em;
+            }
+
+            .searchcontainer p {
+                font-size: .8em;
+            }
+
+            .searchcontainer .forminputs {
+                margin-top: 5%;
+            }
+
+            .searchcontainer {
+                margin-left: 0%;
+                margin-right: 0%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="ncontainer">
+            <nav class="navbar">
+                <a href="#">Home</a>
+                <a href="#">Search</a>
+                <a href="#">Pricing</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="hcontainer">
+            <h1>Welcome to <span class="gradient-text">Tennis Buddy</span></h1>
+        </div>
+        <div class="searchcontainer">
+            <h2>Explore Tournaments</h2>
+            <p>Find information about any USTA event</p>
+
+            <div class="forminputs">
+                <input class="inputlink" type="text" placeholder="Paste USTA Tournament Link">
+                <button class="inputButton">Search</button>
+            </div>
+        </div>
+        <p>Tennis Buddy is a helpful tool for tennis players</p>
+        <div>
+            <img style="max-width: 40%;" src="https://www.ancodeai.com/placeholder.svg"
+                alt="A tennis player about to hit a tennis ball with their racquet.">
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>Copyright 2023 Tennis Buddy</p>
+        <ul>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+    </footer>
+</body>
+
+
+</html>
