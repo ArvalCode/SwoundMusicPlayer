@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Your SWOUND Library</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    .form-popup {
+      animation: transitionIn 0.75s;
+    }
+    .acontainer {
+      animation: transitionIn 0.75s;
+    }
+
+
+    @keyframes transitionIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+       to {
+        opacity: 1;
+        transform: translateY(0);
+       }
+    }
+
+    body.modal-open {
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+
+
+    .acontainer {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .btn {
+      background-color: #888293;
+      border: none;
+      color: white;
+      padding: 4px 14px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition-duration: 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #676274;
+    }
+
+
+    .audio-container {
+      margin-top: 20px;
+    }
+
+    audio {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+  <header class="bg-[#160831] shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4">
+      <div class="flex items-center">
+        <a href="/" class="text-2xl font-bold text-white">
+
+          <span class="text-[#ff3f81]">S</span>wound
+        </a>
+        <nav class="ml-8">
+          <a href="Newfolder" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Create Folder</a>
+          <a href="#" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Discover</a>
+        </nav>
+      </div>
+      <div class="flex items-center">
+        <form action="#" class="relative">
+          <input type="text" placeholder="Search"
+            class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+          <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+<style>
+  /* Open button styles */
+  .open-button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .open-button:hover {
+    background-color: #03885D;
+  }
+
+
+  /* Form popup styles */
+  .form-popup {
+    display: none;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    z-index: 9;
+    background-color: white;
+    border: 3px solid #04AA6D;
+    border-radius: 5px;
+    padding: 20px;
+    height: 530px;
+    width: 70%;
+  }
+
+  /* Form container styles */
+  .form-container {}
+
+  /* Input field styles */
+  .form-container input[type=text],
+  .form-container input[type=password],
+  .form-container input[type=file] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 22px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  /* Input field focus styles */
+  .form-container input[type=text]:focus,
+  .form-container input[type=password]:focus,
+  .form-container input[type=file]:focus {
+    background-color: #f1f1f1;
+    outline: none;
+  }
+
+  /* Button styles */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .form-container .btn:hover {
+    background-color: #03885D;
+  }
+
+  /* Cancel button styles */
+  .form-container .cancel {
+    background-color: #FF5252;
+  }
+</style>
+
+<body class="bg-[#23153c] text-[#eae9eb] font-poppins">
+
+
+
+  <div id="myForm" class="form-popup">
+    <form action="/editfolder?currentname={{name}}" method="POST" class="form-container" enctype="multipart/form-data">
+      <h1 style="color: black;">Edit File</h1>
+
+      <label for="name" style="color: black;"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="collection_name" id="name">
+
+      <label for="img" style="color: black;"><b>Cover Image</b></label>
+      <input type="file" placeholder="Enter Password" id="img" name="cover_image" accept="image/*">
+
+      <label for="img" style="color: black;"><b>Upload Music</b></label>
+      <input type="file" placeholder="Enter Password" name="files[]" multiple>
+
+      <button type="submit" class="btn">Save Changes</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
+
+  <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+      document.body.classList.add("modal-open");
+    }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+      document.body.classList.remove("modal-open");
+
+    }
+
+  </script>
+
+  <style>
+    .hc {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-bottom: 7%;
+      margin-top: 7%;
+    }
+
+    .fs {
+      font-size: 50px;
+      font-weight: bolder;
+    }
+
+    .material-icons {
+      margin-top: 5px;
+    }
+  </style>
+  <div class="acontainer">
+    <div class="hc">
+      <div style="    display: flex;
+      flex-direction: column;
+      align-items: center;
+  ">
+        <p1 class="fs">{{name}}</p1>
+        <button class="open-button" onclick="openForm()">Edit Folder</button>
+
+      </div>
+      <img style="max-width: 30%; border-radius: 7px;"
+        src="{{ url_for('static', filename= s+'/' + name|string + '/' + coverimg) }}" alt="Album Cover">
+    </div>
+
+
+
+
+
+
+
+    <div class="audio-container">
+      {% for audio_file in audiofiles %}
+      <div style="    display: flex;
+            justify-content: space-between;">
+        <label for="audio{{ loop.index }}">{{audio_file|replace('-', ' ')}}</label>
+        <button style="margin-right: 2.4%;" class="delete" onclick="deletesong('{{audio_file}}', '{{name}}')"><i
+            class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+      <audio onplay="audclicked('{{loop.index}}')" id="audio{{ loop.index }}" controls>
+        <source src="{{ url_for('static', filename=s+'/' + name + '/audio/' + audio_file) }}" type="audio/mpeg"> Your
+        browser does not support the audio element.
+      </audio> <br>
+      {% endfor %}
+
+    </div>
+
+    <style>
+      .audio-control {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+
+      .controlbtn {
+        margin: 0 10px;
+        padding: 10px;
+        border: none;
+        background-color: transparent;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .controlbtn:hover {
+        background-color: #333;
+      }
+    </style>
+    <div>
+      <div class="audio-control">
+        <button class="controlbtn" onclick="skipBack()"><i class="material-icons">skip_previous</i></button>
+        <button class="controlbtn" onclick="playPause()"><i class="material-icons" id="play-pause-icon">play_circle</i></button>
+        <button class="controlbtn" onclick="skipForward()"><i class="material-icons">skip_next</i></button>
+        <button class="controlbtn" onclick="shuffle()"><i class="material-icons">shuffle</i></button>
+
+      </div>
+      
+    </div>
+  </div>
+  <script>
+    var currentAudioInd = 0;
+    function playPause() {
+      var audioElements = document.querySelectorAll('audio');
+      var playPauseIcon = document.getElementById('play-pause-icon');
+
+      if (audioElements[currentAudioInd].paused) {
+        playAllAudios();
+        playPauseIcon.textContent = 'pause_circle';
+      } else {
+        pauseAllAudios();
+        playPauseIcon.textContent = 'play_circle';
+      }
+    }
+    function deletesong(audiofile, foldername) {
+      console.log(audiofile)
+      location.href = '/delete?file=' + audiofile + '&foldername=' + foldername;
+    }
+    function playAllAudios() {
+      var audioElements = document.querySelectorAll('audio');
+      playAudio(audioElements, currentAudioInd);
+    }
+
+    function audclicked(ind) {
+      pauseAllAudiosExceptcurr(ind - 1)
+      currentAudioInd = ind - 1;
+      console.log(currentAudioInd);
+
+    }
+
+    function playAudio(audioElements, index) {
+      if (index < audioElements.length) {
+        var audio = audioElements[index];
+        audio.play();
+
+        audio.onended = function () {
+          currentAudioInd += 1;
+          playAudio(audioElements, index + 1);
+        }
+
+          ;
+      }
+    }
+
+    function pauseAllAudiosExceptcurr(ind) {
+      var audioElements = document.querySelectorAll('audio');
+      var i = 0;
+      audioElements.forEach(function (audio) {
+        if (i != ind) {
+          audio.pause();
+        }
+        i++;
+      });
+    }
+
+    function pauseAllAudios() {
+      var audioElements = document.querySelectorAll('audio');
+
+      audioElements.forEach(function (audio) {
+        audio.pause();
+      });
+    }
+
+    function skipBack() {
+      var currentAudio = document.querySelectorAll('audio');
+      currentAudio[currentAudioInd].currentTime -= 10;
+    }
+
+    function skipForward() {
+      var currentAudio = document.querySelectorAll('audio');
+      currentAudio[currentAudioInd].currentTime += 10;
+    }
+
+    function shuffle() {
+      location.reload();
+    }
+
+  </script>
+</body>
+
+</html>
