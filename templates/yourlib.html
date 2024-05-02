@@ -99,7 +99,7 @@
 <style>
   /* Open button styles */
   .open-button {
-    background-color: #04AA6D;
+    background-color: #9086a3;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -108,7 +108,7 @@
   }
 
   .open-button:hover {
-    background-color: #03885D;
+    background-color: #6e6385;
   }
 
 
@@ -120,8 +120,8 @@
     top: 15%;
     left: 15%;
     z-index: 9;
-    background-color: white;
-    border: 3px solid #04AA6D;
+    background-color: #170f27;
+    border: 3px solid #6e6385;
     border-radius: 5px;
     padding: 20px;
     height: 530px;
@@ -152,7 +152,7 @@
 
   /* Button styles */
   .form-container .btn {
-    background-color: #04AA6D;
+    background-color: #9086a3;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -162,12 +162,12 @@
   }
 
   .form-container .btn:hover {
-    background-color: #03885D;
+    background-color: #6e6385;
   }
 
   /* Cancel button styles */
   .form-container .cancel {
-    background-color: #FF5252;
+    background-color: #9086a3;
   }
 </style>
 
@@ -177,15 +177,15 @@
 
   <div id="myForm" class="form-popup">
     <form action="/editfolder?currentname={{name}}" method="POST" class="form-container" enctype="multipart/form-data">
-      <h1 style="color: black;">Edit File</h1>
+      <h1 style="color: white;">Edit File</h1>
 
-      <label for="name" style="color: black;"><b>Name</b></label>
+      <label for="name" style="color: white;"><b>Name</b></label>
       <input type="text" placeholder="Enter Name" name="collection_name" id="name">
 
-      <label for="img" style="color: black;"><b>Cover Image</b></label>
+      <label for="img" style="color: white;"><b>Cover Image</b></label>
       <input type="file" placeholder="Enter Password" id="img" name="cover_image" accept="image/*">
 
-      <label for="img" style="color: black;"><b>Upload Music</b></label>
+      <label for="img" style="color: white;"><b>Upload Music</b></label>
       <input type="file" placeholder="Enter Password" name="files[]" multiple>
 
       <button type="submit" class="btn">Save Changes</button>
@@ -269,7 +269,7 @@
         left: 0;
         width: 100%;
         height: 50px;
-        background-color: black;
+        background-color: #130a22;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -278,7 +278,7 @@
 
       .controlbtn {
         margin: 0 10px;
-        padding: 10px;
+        padding: 5px;
         border: none;
         background-color: transparent;
         color: white;
@@ -287,7 +287,7 @@
       }
 
       .controlbtn:hover {
-        background-color: #333;
+        background-color: #372f46;
       }
     </style>
     <div>
