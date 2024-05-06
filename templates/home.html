@@ -35,7 +35,7 @@
 
 
 <body  id="bbb"class="bg-gray-100 text-[#ffffffeb] font-poppins">
-  <header class="bg-[#160831] shadow-md">
+  <header class="bg-[#110823] shadow-md">
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <div class="flex items-center">
         <a href="/" class="text-2xl font-bold text-white">
@@ -66,7 +66,7 @@
     <h2 class="text-2xl font-bold text-[#ff3f81] mb-4" style="color: #ff3f81;">Recent Uploads</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range([music|length,3] | min) %}
-      <div class="bg-[#160831] shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
+      <div class="bg-[#110823] shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
         <div class="flex items-center">
           {% set t = music[i] %}
           {% set n = coverimglist[i] %}
@@ -89,7 +89,7 @@
     <h2 class="text-2xl font-bold text-[#ff3f81] mt-8 mb-4" style="color: #ff3f81;">Suggested For You</h2>
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(3) %}
-      <div class="bg-[#160831] shadow-md rounded-md p-4" style="cursor: pointer;"
+      <div class="bg-[#110823] shadow-md rounded-md p-4" style="cursor: pointer;"
         onclick='gotosuggested("{{sdir_list[i]}}")'>
         <div class="flex items-center">
           {% set t = sdir_list[i] %}
@@ -113,7 +113,7 @@
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(music|length) %}
 
-      <div class="bg-[#160831] shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;"
+      <div class="bg-[#110823] shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;"
         >
 
         {% set t = music[i] %}
@@ -156,7 +156,7 @@ VANTA.NET({
   minWidth: 200.00,
   scale: 1.00,
   scaleMobile: 1.00,
-  points: 14.00,
-  maxDistance: 18.00
+  points: 7.00,
+  spacing: 20.00
 })
 </script>
