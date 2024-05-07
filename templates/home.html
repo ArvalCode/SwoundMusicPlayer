@@ -50,7 +50,7 @@
       <div class="flex items-center">
         <form action="#" class="relative">
           <input type="text" placeholder="Search"
-            class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+            class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-[#ff3f81] focus:ring-[#ff3f81] focus:ring-1">
           <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
@@ -72,7 +72,7 @@
           {% set n = coverimglist[i] %}
 
           <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="folder cover image"
-            class="w-12 h-12 rounded-full">
+            class="w-12 h-12 rounded-full" style="object-fit: cover;">
           <div class="ml-4">
             
             <p class="text-[#ff3f81] font-bold">{{music[i]}}</p>
@@ -96,7 +96,7 @@
           {% set n = scoverimgs[i] %}
 
           <img src="{{ url_for('static', filename='suggested/' +t+ '/' + n) }}" alt="folder cover image"
-            class="w-12 h-12 rounded-full">
+            class="w-12 h-12 rounded-full" style="object-fit: cover;">
           <div class="ml-4">
             <p class="text-[#ff3f81] font-bold">{{sdir_list[i]}}</p>
             <p class="text-[#ffffffeb] text-sm">5hr 34m</p>

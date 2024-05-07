@@ -227,6 +227,12 @@
     .material-icons {
       margin-top: 5px;
     }
+
+    img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
   </style>
   <div class="acontainer">
     <div class="hc">
@@ -239,7 +245,7 @@
         <button class="open-button" onclick="openForm()">Edit Folder</button>
 
       </div>
-      <img style="max-width: 30%; border-radius: 7px;"
+      <img style="border-radius: 7px;"
         src="{{ url_for('static', filename= s+'/' + name|string + '/' + coverimg) }}" alt="Album Cover">
     </div>
 
@@ -325,6 +331,7 @@
     
   })
   </script>
+  
   <script>
     var currentAudioInd = 0;
     function playPause() {
