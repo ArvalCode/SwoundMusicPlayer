@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swound</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    .acontainer {
+      animation: transitionIn 0.75s;
+    }
+    .container {
+      animation: transitionIn 0.75s;
+    }
+
+
+    @keyframes transitionIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+       to {
+        opacity: 1;
+        transform: translateY(0);
+       }
+    }
+ </style>
+</head>
+
+
+
+<body  id="bbb"class="bg-gray-100 text-[#ffffffeb] font-poppins">
+  <header class="bg-[#110823] shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4">
+      <div class="flex items-center">
+        <a href="/" class="text-2xl font-bold text-white">
+
+          <span class="text-[#ff3f81]">S</span>wound
+        </a>
+        <nav class="ml-8">
+          <a href="Newfolder" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Create Folder</a>
+          <a href="/discover" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Discover</a>
+        </nav>
+      </div>
+      <div class="flex items-center">
+        <form action="#" class="relative">
+          <input type="text" placeholder="Search"
+            class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+          <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+  <main class="container mx-auto py-12 px-4">
+    <h2 class="text-2xl font-bold text-[#ff3f81] mb-4" style="color: #ff3f81;">Recent Uploads</h2>
+    <div class="grid grid-cols-3 gap-4">
+      {% for i in range([music|length,3] | min) %}
+      <div class="bg-[#110823] shadow-md rounded-md p-4" style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")'>
+        <div class="flex items-center">
+          {% set t = music[i] %}
+          {% set n = coverimglist[i] %}
+
+          <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="folder cover image"
+            class="w-12 h-12 rounded-full">
+          <div class="ml-4">
+            
+            <p class="text-[#ff3f81] font-bold">{{music[i]}}</p>
+            <p class="text-[#ffffffeb] text-sm">5hr 34m</p>
+          </div>
+
+        </div>
+
+      </div>
+      {% endfor%}
+    </div>
+
+
+    <h2 class="text-2xl font-bold text-[#ff3f81] mt-8 mb-4" style="color: #ff3f81;">Suggested For You</h2>
+    <div class="grid grid-cols-3 gap-4">
+      {% for i in range(3) %}
+      <div class="bg-[#110823] shadow-md rounded-md p-4" style="cursor: pointer;"
+        onclick='gotosuggested("{{sdir_list[i]}}")'>
+        <div class="flex items-center">
+          {% set t = sdir_list[i] %}
+          {% set n = scoverimgs[i] %}
+
+          <img src="{{ url_for('static', filename='suggested/' +t+ '/' + n) }}" alt="folder cover image"
+            class="w-12 h-12 rounded-full">
+          <div class="ml-4">
+            <p class="text-[#ff3f81] font-bold">{{sdir_list[i]}}</p>
+            <p class="text-[#ffffffeb] text-sm">5hr 34m</p>
+          </div>
+
+        </div>
+        <div class="mt-4">
+          <p class="text-[#ffffffeb]">Good relaxing music</p>
+        </div>
+      </div>
+      {% endfor%}
+    </div>
+    <h2 class="text-2xl font-bold text-[#ff3f81] mt-8 mb-4" id="yourlibrary" style="color: #ff3f81;">Your Library</h2>
+    <div class="grid grid-cols-3 gap-4">
+      {% for i in range(music|length) %}
+
+      <div class="bg-[#110823] shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;"
+        >
+
+        {% set t = music[i] %}
+        {% set n = coverimglist[i] %}
+        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" style="cursor: pointer; max-height: 90%; border-radius: 15px; height: 35vh;"
+          alt="A placeholder image of fire" class="w-full h-full object-cover" onclick='gotolibrary("{{music[i]}}")'>
+
+        <div class="flex items-center justify-between mt-4">
+          <p style="cursor: pointer;"  onclick='gotolibrary("{{music[i]}}")' class="text-[#ff3f81] font-bold">{{music[i]}}</p>
+
+          <button style="margin-right: 2.4%;" class="delete" onclick="deletefolder('{{t}}')"><i
+              class="fa fa-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      {% endfor%}
+
+      <script>
+        function gotolibrary(lib) {
+          location.href = '/folder?foldername=' + lib;
+        }
+        function gotosuggested(lib) {
+          location.href = '/sfolder?foldername=' + lib;
+        }
+        function deletefolder(foldername) {
+          console.log(foldername)
+          location.href = '/deletefolder?foldername=' + foldername;
+        }
+      </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+<script>
+VANTA.NET({
+  el: "#bbb",
+  mouseControls: false,
+  touchControls: false,
+  gyroControls: true,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  points: 8.00,
+  maxDistance: 20.00,
+  spacing:  20.00
+
+})
+</script>
