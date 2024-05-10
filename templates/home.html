@@ -13,6 +13,7 @@
     .acontainer {
       animation: transitionIn 0.75s;
     }
+
     .container {
       animation: transitionIn 0.75s;
     }
@@ -24,17 +25,17 @@
         transform: translateY(-10px);
       }
 
-       to {
+      to {
         opacity: 1;
         transform: translateY(0);
-       }
+      }
     }
- </style>
+  </style>
 </head>
 
 
 
-<body  id="bbb"class="bg-gray-100 text-[#ffffffeb] font-poppins">
+<body id="bbb" class="bg-gray-100 text-[#ffffffeb] font-poppins">
   <header class="bg-[#110823] shadow-md">
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <div class="flex items-center">
@@ -49,7 +50,7 @@
       </div>
       <div class="flex items-center">
         <form action="#" class="relative">
-          <input type="text" placeholder="Search"
+          <input id="sb" type="text" placeholder="Search"
             class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
           <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
@@ -59,6 +60,105 @@
             </svg>
           </button>
         </form>
+        <script>
+          const countries = ["hiphop", "jazz", "lofi", "bearmusic", "coolart123", "laughy", "band", "orchestra", "trumphet"];
+          const urls = [
+            "sfolder?foldername=hip%20hop",
+            "sfolder?foldername=jazz",
+            "sfolder?foldername=lofi",
+            "ufolder?foldername=bearmusic",
+            "ufolder?foldername=coolart123",
+            "ufolder?foldername=laughy",
+            "pfolder?foldername=band",
+            "pfolder?foldername=orchestra",
+            "pfolder?foldername=trumphet",
+          ];
+
+          function autocomplete(inputElement, suggestions) {
+            let currentFocus;
+
+            // Execute when the user types
+            inputElement.addEventListener("input", function () {
+              const inputValue = this.value;
+              closeAllLists();
+
+              if (!inputValue) return;
+
+              // Create a DIV element to hold the suggestions
+              const suggestionContainer = document.createElement("DIV");
+              suggestionContainer.setAttribute("id", "autocomplete-list");
+              this.parentNode.appendChild(suggestionContainer);
+
+              // Filter suggestions based on input value
+              const filteredSuggestions = suggestions.filter(suggestion =>
+                suggestion.toLowerCase().startsWith(inputValue.toLowerCase())
+              );
+              const filteredurls = urls.filter(url =>
+              url.split("=")[1].toLowerCase().startsWith(inputValue.toLowerCase())
+              );
+              // Display suggestions
+// Display suggestions
+filteredSuggestions.forEach((suggestion, index) => {
+                    const suggestionItem = document.createElement("DIV");
+                    suggestionItem.innerHTML = `<strong>${suggestion.substr(0, inputValue.length)}</strong>${suggestion.substr(inputValue.length)}`;
+                    suggestionItem.addEventListener("click", function () {
+                        inputElement.value = suggestion; // Set the input value
+                        window.location.href = filteredurls[index]; // Navigate to the corresponding URL
+                        closeAllLists();
+                    });
+                    suggestionContainer.appendChild(suggestionItem);
+                });
+            });
+
+
+
+
+            // Handle keyboard navigation
+            inputElement.addEventListener("keydown", function (e) {
+              const suggestionItems = document.getElementById("autocomplete-list").children;
+              if (e.key === "ArrowDown") {
+                currentFocus++;
+                addActive(suggestionItems);
+              } else if (e.key === "ArrowUp") {
+                currentFocus--;
+                addActive(suggestionItems);
+              } else if (e.key === "Enter") {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                  inputElement.value = suggestionItems[currentFocus].textContent;
+                  closeAllLists();
+                }
+              }
+            });
+
+            // Close the suggestion list
+            function closeAllLists() {
+              const suggestionList = document.getElementById("autocomplete-list");
+              if (suggestionList) suggestionList.parentNode.removeChild(suggestionList);
+            }
+
+            // Highlight the active suggestion
+            function addActive(items) {
+              if (!items) return;
+              removeActive(items);
+              if (currentFocus >= items.length) currentFocus = 0;
+              if (currentFocus < 0) currentFocus = items.length - 1;
+              items[currentFocus].classList.add("autocomplete-active");
+            }
+
+            // Remove active class from suggestions
+            function removeActive(items) {
+              for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove("autocomplete-active");
+              }
+            }
+          }
+
+          // Initialize autocomplete for the search input
+          const searchInput = document.getElementById("sb");
+          autocomplete(searchInput, countries);
+
+        </script>
       </div>
     </div>
   </header>
@@ -74,7 +174,7 @@
           <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" alt="folder cover image"
             class="w-12 h-12 rounded-full">
           <div class="ml-4">
-            
+
             <p class="text-[#ff3f81] font-bold">{{music[i]}}</p>
             <p class="text-[#ffffffeb] text-sm">5hr 34m</p>
           </div>
@@ -113,19 +213,20 @@
     <div class="grid grid-cols-3 gap-4">
       {% for i in range(music|length) %}
 
-      <div class="bg-[#110823] shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;"
-        >
+      <div class="bg-[#110823] shadow-md rounded-md p-4" style=" min-height:90%;  margin-bottom: 20px;">
 
         {% set t = music[i] %}
         {% set n = coverimglist[i] %}
-        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}" style="cursor: pointer; max-height: 90%; border-radius: 15px; height: 35vh;"
-          alt="A placeholder image of fire" class="w-full h-full object-cover" onclick='gotolibrary("{{music[i]}}")'>
+        <img src="{{ url_for('static', filename='music/' +t+ '/' + n) }}"
+          style="cursor: pointer; max-height: 90%; border-radius: 15px; height: 35vh;" alt="A placeholder image of fire"
+          class="w-full h-full object-cover" onclick='gotolibrary("{{music[i]}}")'>
 
         <div class="flex items-center justify-between mt-4">
-          <p style="cursor: pointer;"  onclick='gotolibrary("{{music[i]}}")' class="text-[#ff3f81] font-bold">{{music[i]}}</p>
+          <p style="cursor: pointer;" onclick='gotolibrary("{{music[i]}}")' class="text-[#ff3f81] font-bold">
+            {{music[i]}}</p>
 
-          <button style="margin-right: 2.4%;" class="delete" onclick="deletefolder('{{t}}')"><i
-              class="fa fa-trash" aria-hidden="true"></i></button>
+          <button style="margin-right: 2.4%;" class="delete" onclick="deletefolder('{{t}}')"><i class="fa fa-trash"
+              aria-hidden="true"></i></button>
         </div>
       </div>
       {% endfor%}
@@ -144,21 +245,21 @@
       </script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
-<script>
-VANTA.NET({
-  el: "#bbb",
-  mouseControls: false,
-  touchControls: false,
-  gyroControls: true,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  points: 8.00,
-  maxDistance: 20.00,
-  spacing:  20.00
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+      <script>
+        VANTA.NET({
+          el: "#bbb",
+          mouseControls: false,
+          touchControls: false,
+          gyroControls: true,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          points: 8.00,
+          maxDistance: 20.00,
+          spacing: 20.00
 
-})
-</script>
+        })
+      </script>
