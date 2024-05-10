@@ -1337,16 +1337,117 @@
       </div>
       <div class="flex items-center">
         <form action="#" class="relative">
-          <input type="text" placeholder="Search"
+          <input id="sb" type="text" placeholder="Search"
             class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
           <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
         </form>
+        <script>
+          const countries = ["hiphop", "jazz", "lofi", "bearmusic", "coolart123", "laughy", "band", "orchestra", "trumphet"];
+          const urls = [
+            "sfolder?foldername=hip%20hop",
+            "sfolder?foldername=jazz",
+            "sfolder?foldername=lofi",
+            "ufolder?foldername=bearmusic",
+            "ufolder?foldername=coolart123",
+            "ufolder?foldername=laughy",
+            "pfolder?foldername=band",
+            "pfolder?foldername=orchestra",
+            "pfolder?foldername=trumphet",
+          ];
+
+          function autocomplete(inputElement, suggestions) {
+            let currentFocus;
+
+            // Execute when the user types
+            inputElement.addEventListener("input", function () {
+              const inputValue = this.value;
+              closeAllLists();
+
+              if (!inputValue) return;
+
+              // Create a DIV element to hold the suggestions
+              const suggestionContainer = document.createElement("DIV");
+              suggestionContainer.setAttribute("id", "autocomplete-list");
+              this.parentNode.appendChild(suggestionContainer);
+
+              // Filter suggestions based on input value
+              const filteredSuggestions = suggestions.filter(suggestion =>
+                suggestion.toLowerCase().startsWith(inputValue.toLowerCase())
+              );
+              const filteredurls = urls.filter(url =>
+                url.split("=")[1].toLowerCase().startsWith(inputValue.toLowerCase())
+              );
+              // Display suggestions
+              // Display suggestions
+              filteredSuggestions.forEach((suggestion, index) => {
+                const suggestionItem = document.createElement("DIV");
+                suggestionItem.style.cursor = "pointer";
+
+                suggestionItem.innerHTML = `<strong>${suggestion.substr(0, inputValue.length)}</strong>${suggestion.substr(inputValue.length)}`;
+                suggestionItem.addEventListener("click", function () {
+                  inputElement.value = suggestion; // Set the input value
+                  window.location.href = filteredurls[index]; // Navigate to the corresponding URL
+                  closeAllLists();
+                });
+                suggestionContainer.appendChild(suggestionItem);
+              });
+            });
+
+
+
+
+            // Handle keyboard navigation
+            inputElement.addEventListener("keydown", function (e) {
+              const suggestionItems = document.getElementById("autocomplete-list").children;
+              if (e.key === "ArrowDown") {
+                currentFocus++;
+                addActive(suggestionItems);
+              } else if (e.key === "ArrowUp") {
+                currentFocus--;
+                addActive(suggestionItems);
+              } else if (e.key === "Enter") {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                  inputElement.value = suggestionItems[currentFocus].textContent;
+                  closeAllLists();
+                }
+              }
+            });
+
+            // Close the suggestion list
+            function closeAllLists() {
+              const suggestionList = document.getElementById("autocomplete-list");
+              if (suggestionList) suggestionList.parentNode.removeChild(suggestionList);
+            }
+
+            // Highlight the active suggestion
+            function addActive(items) {
+              if (!items) return;
+              removeActive(items);
+              if (currentFocus >= items.length) currentFocus = 0;
+              if (currentFocus < 0) currentFocus = items.length - 1;
+              items[currentFocus].classList.add("autocomplete-active");
+            }
+
+            // Remove active class from suggestions
+            function removeActive(items) {
+              for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove("autocomplete-active");
+              }
+            }
+          }
+
+          // Initialize autocomplete for the search input
+          const searchInput = document.getElementById("sb");
+          autocomplete(searchInput, countries);
+
+        </script>
       </div>
     </div>
   </header><span style="position: relative; z-index: 1;">
@@ -1429,38 +1530,38 @@
       {% endfor%}
     </div>
 
-      <script>
-        function gotopersonalized(lib) {
-          location.href = '/pfolder?foldername=' + lib;
-        }
-        function gotoupandcoming(lib) {
-          location.href = '/ufolder?foldername=' + lib;
-        }
-        function gotosuggested(lib) {
-          location.href = '/sfolder?foldername=' + lib;
-        }
+    <script>
+      function gotopersonalized(lib) {
+        location.href = '/pfolder?foldername=' + lib;
+      }
+      function gotoupandcoming(lib) {
+        location.href = '/ufolder?foldername=' + lib;
+      }
+      function gotosuggested(lib) {
+        location.href = '/sfolder?foldername=' + lib;
+      }
 
-      </script>
+    </script>
 
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
-      <script>
-        VANTA.NET({
-          el: "#bbb",
-          mouseControls: false,
-          touchControls: false,
-          gyroControls: true,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          scale: 1.00,
-          scaleMobile: 1.00,
-          points: 8.00,
-          maxDistance: 20.00,
-          spacing:  20.00
-        
-        })
-        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+    <script>
+      VANTA.NET({
+        el: "#bbb",
+        mouseControls: false,
+        touchControls: false,
+        gyroControls: true,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        points: 8.00,
+        maxDistance: 20.00,
+        spacing: 20.00
+
+      })
+    </script>
     </div>
   </main><canvas class="vanta-canvas" width="1365" height="917"
     style="display: block; position: absolute; z-index: 0; top: 0px; left: 0px; width: 1365px; height: 917px;"></canvas><canvas

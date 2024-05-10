@@ -94,20 +94,22 @@
                 suggestion.toLowerCase().startsWith(inputValue.toLowerCase())
               );
               const filteredurls = urls.filter(url =>
-              url.split("=")[1].toLowerCase().startsWith(inputValue.toLowerCase())
+                url.split("=")[1].toLowerCase().startsWith(inputValue.toLowerCase())
               );
               // Display suggestions
-// Display suggestions
-filteredSuggestions.forEach((suggestion, index) => {
-                    const suggestionItem = document.createElement("DIV");
-                    suggestionItem.innerHTML = `<strong>${suggestion.substr(0, inputValue.length)}</strong>${suggestion.substr(inputValue.length)}`;
-                    suggestionItem.addEventListener("click", function () {
-                        inputElement.value = suggestion; // Set the input value
-                        window.location.href = filteredurls[index]; // Navigate to the corresponding URL
-                        closeAllLists();
-                    });
-                    suggestionContainer.appendChild(suggestionItem);
+              // Display suggestions
+              filteredSuggestions.forEach((suggestion, index) => {
+                const suggestionItem = document.createElement("DIV");
+                suggestionItem.style.cursor = "pointer";
+
+                suggestionItem.innerHTML = `<strong>${suggestion.substr(0, inputValue.length)}</strong>${suggestion.substr(inputValue.length)}`;
+                suggestionItem.addEventListener("click", function () {
+                  inputElement.value = suggestion; // Set the input value
+                  window.location.href = filteredurls[index]; // Navigate to the corresponding URL
+                  closeAllLists();
                 });
+                suggestionContainer.appendChild(suggestionItem);
+              });
             });
 
 

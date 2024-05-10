@@ -23,10 +23,10 @@
         transform: translateY(-10px);
       }
 
-       to {
+      to {
         opacity: 1;
         transform: translateY(0);
-       }
+      }
     }
 
     .acontainer {
@@ -34,7 +34,7 @@
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
-      
+
     }
 
     .btn {
@@ -58,7 +58,7 @@
 
     .audio-container {
       margin-top: 20px;
-      
+
     }
 
     audio {
@@ -71,30 +71,131 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 
-  <header class="bg-[#160831] shadow-md">
-    <div class="container mx-auto flex justify-between items-center py-4 px-4">
-      <div class="flex items-center">
-        <a href="/" class="text-2xl font-bold text-white">
+<header class="bg-[#160831] shadow-md">
+  <div class="container mx-auto flex justify-between items-center py-4 px-4">
+    <div class="flex items-center">
+      <a href="/" class="text-2xl font-bold text-white">
 
-          <span class="text-[#ff3f81]">S</span>wound
-        </a>
-        <nav class="ml-8">
-          <a href="Newfolder" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Create Folder</a>
-          <a href="/discover" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Discover</a>
-        </nav>
-      </div>
-      <div class="flex items-center">
-        <form action="#" class="relative">
-          <input type="text" placeholder="Search"
-            class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
-          <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+        <span class="text-[#ff3f81]">S</span>wound
+      </a>
+      <nav class="ml-8">
+        <a href="Newfolder" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Create Folder</a>
+        <a href="/discover" class="text-[#ffffffeb] hover:text-[#dfcdd3] px-3 py-2 rounded-md">Discover</a>
+      </nav>
+    </div>
+    <div class="flex items-center">
+      <form action="#" class="relative">
+        <input id="sb" type="text" placeholder="Search"
+          class="bg-gray-200 border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+        <button type="submit" class="absolute right-0 top-0 bottom-0 flex items-center justify-center px-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
         </button>
       </form>
+      <script>
+        const countries = ["hiphop", "jazz", "lofi", "bearmusic", "coolart123", "laughy", "band", "orchestra", "trumphet"];
+        const urls = [
+          "sfolder?foldername=hip%20hop",
+          "sfolder?foldername=jazz",
+          "sfolder?foldername=lofi",
+          "ufolder?foldername=bearmusic",
+          "ufolder?foldername=coolart123",
+          "ufolder?foldername=laughy",
+          "pfolder?foldername=band",
+          "pfolder?foldername=orchestra",
+          "pfolder?foldername=trumphet",
+        ];
+
+        function autocomplete(inputElement, suggestions) {
+          let currentFocus;
+
+          // Execute when the user types
+          inputElement.addEventListener("input", function () {
+            const inputValue = this.value;
+            closeAllLists();
+
+            if (!inputValue) return;
+
+            // Create a DIV element to hold the suggestions
+            const suggestionContainer = document.createElement("DIV");
+            suggestionItem.style.cursor = "pointer";
+
+            suggestionContainer.setAttribute("id", "autocomplete-list");
+            this.parentNode.appendChild(suggestionContainer);
+
+            // Filter suggestions based on input value
+            const filteredSuggestions = suggestions.filter(suggestion =>
+              suggestion.toLowerCase().startsWith(inputValue.toLowerCase())
+            );
+            const filteredurls = urls.filter(url =>
+              url.split("=")[1].toLowerCase().startsWith(inputValue.toLowerCase())
+            );
+            // Display suggestions
+            // Display suggestions
+            filteredSuggestions.forEach((suggestion, index) => {
+              const suggestionItem = document.createElement("DIV");
+              suggestionItem.innerHTML = `<strong>${suggestion.substr(0, inputValue.length)}</strong>${suggestion.substr(inputValue.length)}`;
+              suggestionItem.addEventListener("click", function () {
+                inputElement.value = suggestion; // Set the input value
+                window.location.href = filteredurls[index]; // Navigate to the corresponding URL
+                closeAllLists();
+              });
+              suggestionContainer.appendChild(suggestionItem);
+            });
+          });
+
+
+
+
+          // Handle keyboard navigation
+          inputElement.addEventListener("keydown", function (e) {
+            const suggestionItems = document.getElementById("autocomplete-list").children;
+            if (e.key === "ArrowDown") {
+              currentFocus++;
+              addActive(suggestionItems);
+            } else if (e.key === "ArrowUp") {
+              currentFocus--;
+              addActive(suggestionItems);
+            } else if (e.key === "Enter") {
+              e.preventDefault();
+              if (currentFocus > -1) {
+                inputElement.value = suggestionItems[currentFocus].textContent;
+                closeAllLists();
+              }
+            }
+          });
+
+          // Close the suggestion list
+          function closeAllLists() {
+            const suggestionList = document.getElementById("autocomplete-list");
+            if (suggestionList) suggestionList.parentNode.removeChild(suggestionList);
+          }
+
+          // Highlight the active suggestion
+          function addActive(items) {
+            if (!items) return;
+            removeActive(items);
+            if (currentFocus >= items.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = items.length - 1;
+            items[currentFocus].classList.add("autocomplete-active");
+          }
+
+          // Remove active class from suggestions
+          function removeActive(items) {
+            for (let i = 0; i < items.length; i++) {
+              items[i].classList.remove("autocomplete-active");
+            }
+          }
+        }
+
+        // Initialize autocomplete for the search input
+        const searchInput = document.getElementById("sb");
+        autocomplete(searchInput, countries);
+
+      </script>
     </div>
   </div>
 </header>
@@ -297,33 +398,34 @@
     <div>
       <div class="audio-control">
         <button class="controlbtn" onclick="skipBack()"><i class="material-icons">skip_previous</i></button>
-        <button class="controlbtn" onclick="playPause()"><i class="material-icons" id="play-pause-icon">play_circle</i></button>
+        <button class="controlbtn" onclick="playPause()"><i class="material-icons"
+            id="play-pause-icon">play_circle</i></button>
         <button class="controlbtn" onclick="skipForward()"><i class="material-icons">skip_next</i></button>
         <button class="controlbtn" onclick="shuffle()"><i class="material-icons">shuffle</i></button>
 
       </div>
-      
+
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
   <script>
-  VANTA.WAVES({
-    el: "#bob",
-    mouseControls: false,
-    touchControls: true,
-    gyroControls: false,
-    minHeight:900.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00,
-    color: 0x281737,
-    shininess: 20.00,
-    waveHeight: 7.00,
-    waveSpeed: 0.70,
-    zoom: .7
-    
-  })
+    VANTA.WAVES({
+      el: "#bob",
+      mouseControls: false,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 900.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x281737,
+      shininess: 20.00,
+      waveHeight: 7.00,
+      waveSpeed: 0.70,
+      zoom: .7
+
+    })
   </script>
   <script>
     var currentAudioInd = 0;
@@ -403,7 +505,7 @@
     }
 
   </script>
-  
+
 </body>
 
 </html>
