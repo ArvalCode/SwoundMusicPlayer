@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 import os
 import random
 import shutil
+from g4f.client import Client
 
 
 app = Flask(__name__)
@@ -168,6 +169,14 @@ def deletefolder():
 
 @app.route('/discover', methods=['GET'])
 def discover():
+    dir_list = os.listdir("static/music") 
+
+    coverimgs = []
+    for path in os.scandir(f'static/music/'):
+        if not path.is_file():
+            for i in os.scandir(f'static/music/{path.name}'):
+                if i.is_file():
+                    coverimgs.append(i.name)
 
     upandcomingdir_list = os.listdir("static/upandcoming") 
 
@@ -181,6 +190,21 @@ def discover():
 
     
     sdir_list = os.listdir("static/suggested") 
+
+    ssongs = ''
+    for s in sdir_list:
+        ssongs += s + ", "
+    client = Client()
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": f"I have {len(ssongs)} songs in my library named: {ssongs}. I want you to rank the similarity of all these songs to a song named '{dir_list[0]}' based off the name alone. respond to this message with a comma seperated list of these songs from most related to my song. Respond in list format song,song,song. DO NOT REPLY WITH ANY OTHER INFORMATION EXCEPT THE RETURNED LIST OF SONGS. DO NOT INCLUDE THE ORIGINAL SONG IN THE RESPONSE"}],
+        
+    )
+    f = response.choices[0].message.content.split(",")
+    sdir_list = []
+    for b in f:
+        if b != dir_list[0]:
+            sdir_list.append(b)
 
     scoverimgs = []
     for path in os.scandir(f'static/suggested/'):
