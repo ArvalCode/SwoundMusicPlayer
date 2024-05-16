@@ -294,7 +294,12 @@
 
       <button type="submit" class="btn">Save Changes</button>
       <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+
+
     </form>
+    <form action="/ai?currentname={{name}}" method="POST" class="form-container" enctype="multipart/form-data">
+      <button type="submit" class="ai">Auto AI</button>
+      </form>
   </div>
 
   <script>

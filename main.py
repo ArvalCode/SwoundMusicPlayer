@@ -3,6 +3,8 @@ import os
 import random
 import shutil
 from g4f.client import Client
+from g4f.Provider import Bing
+import urllib
 
 
 app = Flask(__name__)
@@ -106,6 +108,27 @@ def folder():
     
     return render_template('yourlib.html', s="music", the_title='Your Library', audiofiles = sorted(audiofiles, key=lambda x: random.random()), name = folderid, coverimg = coverimage.name)
 
+
+@app.route('/ai', methods=['POST'])
+def ai():
+    folderid = request.args.get("currentname")
+    audiofiles = os.listdir(f"static/music/{folderid}/audio")
+    ssongs = ''
+    for s in audiofiles:
+        ssongs += s + ", "
+
+    client = Client()
+    response = client.chat.completions.create(
+        model="gpt-4",
+        provider = Bing,
+        messages=[{"role": "user", "content": f"I have a folder with these songs: {ssongs}. create a name that represents this folder the best based on the songs. Reply to this message with only the name you suggest and NOTHING ELSE."}],
+    )
+    collection_folder = os.path.join('static/music', folderid)
+    os.rename(collection_folder, f'static/music/{response.choices[0].message.content}') 
+    encoded_string = urllib.parse.quote(response.choices[0].message.content)
+
+    return redirect(f'/folder?foldername={encoded_string}')
+
 @app.route('/Newfolder')
 def Newfolder():
     folderid = random.randrange(10000,100000)
@@ -196,7 +219,8 @@ def discover():
         ssongs += s + ", "
     client = Client()
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
+        provider = Bing,
         messages=[{"role": "user", "content": f"I have {len(ssongs)} songs in my library named: {ssongs}. I want you to rank the similarity of all these songs to a song named '{dir_list[0]}' based off the name alone. respond to this message with a comma seperated list of these songs from most related to my song. Respond in list format song,song,song. DO NOT REPLY WITH ANY OTHER INFORMATION EXCEPT THE RETURNED LIST OF SONGS. DO NOT INCLUDE THE ORIGINAL SONG IN THE RESPONSE"}],
         
     )
